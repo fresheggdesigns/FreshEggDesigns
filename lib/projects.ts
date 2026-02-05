@@ -14,6 +14,10 @@ export interface ProjectFrontmatter {
   outcome: string;
   tags: string[];
   featured_image?: string;
+  // Case study specific fields
+  team?: string;
+  platforms?: string[];
+  outcomes?: string[];
 }
 
 export interface Project {
@@ -74,7 +78,10 @@ export function getProjectBySlug(slug: string): Project | null {
   }
 }
 
-function extractYear(timeframe: string): number | null {
+function extractYear(timeframe: string | undefined): number | null {
+  if (!timeframe || typeof timeframe !== "string") {
+    return null;
+  }
   const match = timeframe.match(/\d{4}/);
   return match ? parseInt(match[0], 10) : null;
 }

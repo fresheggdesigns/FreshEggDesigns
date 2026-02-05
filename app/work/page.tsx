@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { getAllProjects } from "@/lib/projects";
-import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectGrid } from "@/components/work/ProjectGrid";
+import { AnimatedSection } from "@/components/animations/AnimatedSection";
+import { TextReveal } from "@/components/animations/TextReveal";
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -16,26 +18,32 @@ export default function WorkPage() {
   const projects = getAllProjects();
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="mb-12 space-y-4">
-        <h1 className="text-4xl md:text-5xl font-bold">Work</h1>
-        <p className="text-lg text-foreground/80 max-w-2xl">
-          A collection of product design projects and case studies showcasing
-          my process, thinking, and outcomes.
-        </p>
-      </div>
+    <div className="w-full">
+      <AnimatedSection className="py-section-lg">
+        <div className="container mx-auto px-6">
+          <div className="mb-16 space-y-6 max-w-3xl">
+            <TextReveal as="h1" delay={0.1}>
+              Work
+            </TextReveal>
+            <TextReveal delay={0.2}>
+              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                A collection of product design projects and case studies
+                showcasing my process, thinking, and outcomes.
+              </p>
+            </TextReveal>
+          </div>
 
-      {projects.length === 0 ? (
-        <div className="py-12 text-center">
-          <p className="text-foreground/60">No projects found.</p>
+          {projects.length === 0 ? (
+            <div className="py-24 text-center">
+              <p className="text-gray-500 dark:text-gray-400 text-lg">
+                No projects found.
+              </p>
+            </div>
+          ) : (
+            <ProjectGrid projects={projects} />
+          )}
         </div>
-      ) : (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      )}
+      </AnimatedSection>
     </div>
   );
 }

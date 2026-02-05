@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getProjectBySlug, getAllProjectSlugs } from "@/lib/projects";
 import { ProjectHeader } from "@/components/projects/ProjectHeader";
+import { CaseStudySummary } from "@/components/case-study/CaseStudySummary";
+import { mdxComponents } from "@/components/mdx-components";
 import { siteConfig } from "@/lib/config";
 
 interface ProjectPageProps {
@@ -71,29 +73,57 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <article className="container mx-auto px-4 py-16">
-      <ProjectHeader frontmatter={frontmatter} />
-
-      {frontmatter.problem && (
-        <section className="mb-12 space-y-4">
-          <h2 className="text-2xl font-semibold">The Problem</h2>
-          <p className="text-lg leading-relaxed text-foreground/80">
-            {frontmatter.problem}
-          </p>
-        </section>
-      )}
-
-      <div className="prose prose-lg max-w-none dark:prose-invert">
-        <MDXRemote source={content} />
+      {/* Header */}
+      <div className="mb-12">
+        <ProjectHeader frontmatter={frontmatter} />
       </div>
 
-      {frontmatter.outcome && (
-        <section className="mt-12 space-y-4 rounded-lg border border-foreground/10 bg-foreground/5 p-6">
-          <h2 className="text-2xl font-semibold">Outcome</h2>
-          <p className="text-lg leading-relaxed text-foreground/80">
-            {frontmatter.outcome}
-          </p>
-        </section>
-      )}
+      {/* Two-column layout: Content + Sticky Summary */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        {/* Main content */}
+        <div className="lg:col-span-8">
+          {frontmatter.problem && (
+            <section className="mb-12 space-y-4">
+              <h2 className="text-2xl font-semibold">The Problem</h2>
+              <p className="text-lg leading-relaxed text-foreground/80">
+                {frontmatter.problem}
+              </p>
+            </section>
+          )}
+
+      <div className="prose prose-lg max-w-none dark:prose-invert">
+        <MDXRemote 
+          source={content} 
+          components={mdxComponents}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [],
+              rehypePlugins: [],
+            },
+          }}
+        />
+      </div>
+
+          {frontmatter.outcome && (
+            <section className="mt-12 space-y-4 rounded-lg border border-foreground/10 bg-foreground/5 p-6">
+              <h2 className="text-2xl font-semibold">Outcome</h2>
+              <p className="text-lg leading-relaxed text-foreground/80">
+                {frontmatter.outcome}
+              </p>
+            </section>
+          )}
+        </div>
+
+        {/* Sticky summary sidebar */}
+        <div className="lg:col-span-4">
+          <CaseStudySummary
+            frontmatter={frontmatter}
+            team={frontmatter.team}
+            platforms={frontmatter.platforms}
+            outcomes={frontmatter.outcomes}
+          />
+        </div>
+      </div>
     </article>
   );
 }

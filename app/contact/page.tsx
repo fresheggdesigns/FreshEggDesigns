@@ -1,6 +1,10 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/config";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { AnimatedSection } from "@/components/animations/AnimatedSection";
+import { TextReveal } from "@/components/animations/TextReveal";
 import { Button } from "@/components/ui/Button";
+import { ContactInfo } from "@/components/contact/ContactInfo";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -13,78 +17,38 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="mx-auto max-w-2xl space-y-12">
-        <div className="space-y-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold">Get in Touch</h1>
-          <p className="text-lg text-foreground/80">
-            {siteConfig.contact.message}
-          </p>
-        </div>
+    <div className="w-full">
+      <AnimatedSection className="py-section-lg">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-16 space-y-6 text-center max-w-2xl mx-auto">
+              <TextReveal as="h1" delay={0.1}>
+                Get in Touch
+              </TextReveal>
+              <TextReveal delay={0.2}>
+                <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {siteConfig.contact.message}
+                </p>
+              </TextReveal>
+            </div>
 
-        <div className="space-y-8 rounded-lg border border-foreground/10 bg-foreground/5 p-8">
-          <div>
-            <h2 className="mb-4 text-2xl font-semibold">Email</h2>
-            <a
-              href={`mailto:${siteConfig.contact.email}`}
-              className="text-lg text-foreground/80 hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 rounded"
-            >
-              {siteConfig.contact.email}
-            </a>
-          </div>
+            <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+              {/* Contact Form */}
+              <AnimatedSection delay={0.3}>
+                <div>
+                  <h2 className="text-2xl font-semibold mb-6">Send a Message</h2>
+                  <ContactForm />
+                </div>
+              </AnimatedSection>
 
-          <div>
-            <h2 className="mb-4 text-2xl font-semibold">Social</h2>
-            <ul className="space-y-2">
-              {siteConfig.links.twitter && (
-                <li>
-                  <a
-                    href={siteConfig.links.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lg text-foreground/80 hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 rounded"
-                  >
-                    Twitter →
-                  </a>
-                </li>
-              )}
-              {siteConfig.links.linkedin && (
-                <li>
-                  <a
-                    href={siteConfig.links.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lg text-foreground/80 hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 rounded"
-                  >
-                    LinkedIn →
-                  </a>
-                </li>
-              )}
-              {siteConfig.links.github && (
-                <li>
-                  <a
-                    href={siteConfig.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-lg text-foreground/80 hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 rounded"
-                  >
-                    GitHub →
-                  </a>
-                </li>
-              )}
-            </ul>
-          </div>
-
-          <div className="pt-4">
-            <Button
-              href={`mailto:${siteConfig.contact.email}`}
-              variant="primary"
-            >
-              Send Email
-            </Button>
+              {/* Contact Info */}
+              <AnimatedSection delay={0.4}>
+                <ContactInfo />
+              </AnimatedSection>
+            </div>
           </div>
         </div>
-      </div>
+      </AnimatedSection>
     </div>
   );
 }
