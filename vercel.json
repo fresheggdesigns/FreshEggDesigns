@@ -1,0 +1,64 @@
+{
+  "redirects": [
+    {
+      "source": "/projects-2",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/design-systems",
+      "destination": "/work/design-systems",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/design-systems/",
+      "destination": "/work/design-systems",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/squeaker-chomp",
+      "destination": "/work/squeaker-chomp",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/squeaker-chomp/",
+      "destination": "/work/squeaker-chomp",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/patron-tech",
+      "destination": "/work/patron-tech",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/patron-tech/",
+      "destination": "/work/patron-tech",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/bbva",
+      "destination": "/work/bbva",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/bbva/",
+      "destination": "/work/bbva",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/product-design",
+      "destination": "/work/product-design",
+      "permanent": true
+    },
+    {
+      "source": "/projects-2/product-design/",
+      "destination": "/work/product-design",
+      "permanent": true
+    }
+  ]
+}

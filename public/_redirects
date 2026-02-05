@@ -1,0 +1,16 @@
+# Netlify redirects file
+# Auto-generated from lib/redirects.ts
+# Format: /old-path  /new-path  status-code
+
+/projects-2  /work  301
+/projects-2/  /work  301
+/projects-2/design-systems  /work/design-systems  301
+/projects-2/design-systems/  /work/design-systems  301
+/projects-2/squeaker-chomp  /work/squeaker-chomp  301
+/projects-2/squeaker-chomp/  /work/squeaker-chomp  301
+/projects-2/patron-tech  /work/patron-tech  301
+/projects-2/patron-tech/  /work/patron-tech  301
+/projects-2/bbva  /work/bbva  301
+/projects-2/bbva/  /work/bbva  301
+/projects-2/product-design  /work/product-design  301
+/projects-2/product-design/  /work/product-design  301
