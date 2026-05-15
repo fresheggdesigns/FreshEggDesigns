@@ -32,69 +32,58 @@
     img { display: block; max-width: 100%; }
     ul  { list-style: none; }
 
-    /* ── Sticky Nav ────────────────────────────────────────────── */
-    .nav {
-      position: sticky;
-      top: 0;
+    /* ── Floating wordmark ─────────────────────────────────────── */
+    .wordmark {
+      position: fixed;
+      top: 1rem;
+      left: 1.25rem;
       z-index: 200;
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0,0,0,.07);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-    }
-
-    .nav-brand {
-      font-size: 1.05rem;
+      text-decoration: none;
+      color: #fff;
+      font-size: .88rem;
       font-weight: bold;
-      color: var(--teal);
-      text-decoration: none;
-      padding: 1.1rem 0;
-      white-space: nowrap;
+      letter-spacing: .02em;
+      background: rgba(0,0,0,.18);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: .45rem .9rem;
+      border-radius: 50px;
+      transition: background .2s, color .2s;
     }
+    .wordmark:hover { background: rgba(0,0,0,.32); }
+    .wordmark:focus-visible { outline: 2px solid var(--peach); outline-offset: 3px; }
 
-    .nav-links {
-      display: flex;
-    }
-
-    .nav-links a {
-      display: block;
-      padding: 1.1rem 1.1rem;
-      text-decoration: none;
-      color: var(--text-mid);
-      font-size: .93rem;
-      position: relative;
-      transition: color .2s;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      inset: auto 0 0;
-      height: 3px;
+    /* ── Back-to-top button ────────────────────────────────────── */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       background: var(--teal);
-      border-radius: 3px 3px 0 0;
-      transform: scaleX(0);
-      transition: transform .22s;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--teal); }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after { transform: scaleX(1); }
-
-    .nav-toggle {
-      display: none;
-      background: none;
+      color: #fff;
       border: none;
       cursor: pointer;
-      font-size: 1.5rem;
-      color: var(--teal);
-      padding: .5rem;
+      font-size: 1.1rem;
       line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(59,191,191,.45);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .25s, transform .25s;
     }
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .back-to-top:hover { background: var(--dark-teal); }
+    .back-to-top:focus-visible { outline: 2px solid var(--peach); outline-offset: 3px; }
 
     /* ── Shared helpers ────────────────────────────────────────── */
     .section-inner {
@@ -149,7 +138,7 @@
 
     /* ══ HERO ══════════════════════════════════════════════════════ */
     #hero {
-      min-height: 100svh;
+      min-height: 75vh;
       background: var(--teal);
       display: flex;
       align-items: center;
@@ -157,35 +146,37 @@
       text-align: center;
       position: relative;
       overflow: hidden;
-      padding: 6rem 2rem 4rem;
+      padding: 3.5rem 2rem;
     }
 
     /* Blob decorations */
     .blob {
       position: absolute;
       pointer-events: none;
-      aria-hidden: true;
     }
     .blob-1 {
       width: 480px; height: 480px;
-      background: var(--peach);
-      opacity: .35;
+      background: #F5A96B;
       border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
       top: -140px; left: -140px;
     }
     .blob-2 {
-      width: 320px; height: 320px;
-      background: var(--pink);
-      opacity: .28;
+      width: 360px; height: 360px;
+      background: #E8527A;
       border-radius: 42% 58% 34% 66% / 56% 44% 56% 44%;
-      bottom: -90px; right: -90px;
+      bottom: -100px; left: -80px;
     }
     .blob-3 {
-      width: 220px; height: 220px;
-      background: var(--peach);
-      opacity: .22;
+      width: 400px; height: 400px;
+      background: #F5A96B;
       border-radius: 70% 30% 46% 54% / 38% 62% 38% 62%;
-      bottom: 80px; left: 8%;
+      bottom: -120px; right: -100px;
+    }
+    .blob-4 {
+      width: 280px; height: 280px;
+      background: #E8527A;
+      border-radius: 50% 50% 38% 62% / 54% 46% 54% 46%;
+      top: -80px; right: -60px;
     }
 
     .hero-content {
@@ -565,27 +556,6 @@
 
     /* ══ Responsive ═══════════════════════════════════════════════ */
     @media (max-width: 760px) {
-      .nav-toggle { display: block; }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0; right: 0;
-        background: #fff;
-        flex-direction: column;
-        box-shadow: 0 6px 16px rgba(0,0,0,.1);
-        padding: .4rem 0 .8rem;
-      }
-      .nav-links.open { display: flex; }
-
-      .nav-links a {
-        padding: .75rem 1.5rem;
-        border-bottom: 1px solid #f0f0f0;
-      }
-      .nav-links a::after { display: none; }
-      .nav { position: relative; }
-
       .about-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -613,21 +583,11 @@
 </head>
 <body>
 
-  <!-- ── Navigation ───────────────────────────────────────────── -->
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <a class="nav-brand" href="#hero">🥚 Fresh Egg Designs</a>
+  <!-- ── Floating wordmark ────────────────────────────────────── -->
+  <a class="wordmark" href="#hero" aria-label="Back to top — Fresh Egg Designs">🥚 Fresh Egg Designs</a>
 
-    <button class="nav-toggle" id="navToggle" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
-      ☰
-    </button>
-
-    <ul class="nav-links" id="navLinks" role="list">
-      <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#commissions">Commissions</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- ── Back-to-top button ───────────────────────────────────── -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
   <main>
 
@@ -636,6 +596,7 @@
       <div class="blob blob-1" aria-hidden="true"></div>
       <div class="blob blob-2" aria-hidden="true"></div>
       <div class="blob blob-3" aria-hidden="true"></div>
+      <div class="blob blob-4" aria-hidden="true"></div>
 
       <div class="hero-content">
         <div class="logo-egg" aria-hidden="true">
@@ -884,38 +845,17 @@
   </footer>
 
   <script>
-    /* ── Mobile nav toggle ──────────────────────────────────────── */
-    const navToggle = document.getElementById('navToggle');
-    const navLinks  = document.getElementById('navLinks');
+    /* ── Back-to-top: show after scrolling past hero ────────────── */
+    const btn  = document.getElementById('backToTop');
+    const hero = document.getElementById('hero');
 
-    navToggle.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      navToggle.setAttribute('aria-expanded', open);
-      navToggle.textContent = open ? '✕' : '☰';
-    });
+    const observer = new IntersectionObserver(
+      ([entry]) => btn.classList.toggle('visible', !entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(hero);
 
-    navLinks.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navToggle.textContent = '☰';
-      });
-    });
-
-    /* ── Active nav on scroll ───────────────────────────────────── */
-    const sections = Array.from(document.querySelectorAll('section[id]'));
-    const links    = Array.from(navLinks.querySelectorAll('a'));
-
-    const setActive = (id) => {
-      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
-    };
-
-    /* IntersectionObserver: mark whichever section covers the top third */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
-    }, { rootMargin: '-20% 0px -60% 0px' });
-
-    sections.forEach(s => io.observe(s));
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   </script>
 
 </body>
